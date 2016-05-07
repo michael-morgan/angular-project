@@ -25,7 +25,6 @@
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
-
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
@@ -33,7 +32,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">angularProject</a>
+            <a class="navbar-brand" href="#/">Movie Mania</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -48,58 +47,7 @@
       </div>
     </div>
 
-    <div class="container">
-      <h3 class="text-muted">Movie Mania</h3>
-      <div ng-controller="MainCtrl">
-        <div class="col-xs-7">
-          <h2>Movies</h2>
-          <div ng-repeat="movie in movies" style="clear: both;">
-            <img src="{{movie.image}}" class="pull-left img-responsive" style="margin-right: 10px;" />
-            <h3 ng-bind="movie.title"></h3>
-            <p ng-bind="movie.category" style="font-size: 0.8em; font-style: italic;"></p>
-            <p ng-bind="movie.description"></p>
-          </div>
-        </div>
-        <div class="col-xs-1">
-          <span class="glyphicon glyphicon-menu-right" ng-show="closed"
-          ng-click="closed=false"></span>
-          <span class="glyphicon glyphicon-menu-down" ng-hide="closed"
-          ng-click="closed=true"></span>
-        </div>
-        <div class="col-xs-4" ng-hide="closed">
-          <h2>Add</h2>
-          <div class="form-group">
-            <label>Title</label>
-            <input class="form-control" placeholder="Enter title" ng-model="movie.title"
-            ng-keyup="validateTitle()">
-          </div>
-          <div class="form-group">
-            <label>Image</label>
-            <input class="form-control" placeholder="Image" ng-model="movie.image">
-            <div ng-show="movie.image.length > 7 && movie.image.substr(-3) === 'png'">
-              <h4>Preview</h4>
-              <img class="img-responsive" ng-src="{{movie.image}}">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Category
-              <select class="form-control" ng-model="movie.category" ng-change="checkCategorySelected()">
-                <option value="">-</option>
-                <option value="Epic">Epic</option>
-                <option value="Awesome">Awesome</option>
-                <option value="Average">Average</option>
-              </select>
-            </label>
-          </div>
-          <div class="form-group">
-            <label>Description
-              <textarea class="form-control" ng-model="movie.description" ng-blur="checkDescription()"></textarea>
-            </label>
-          </div>
-          <button class="btn btn-info" ng-click="addMovie()" ng-show="isValid()">Add</button>
-        </div>
-      </div>
-    </div>
+    <div ng-view="" class="container"></div>
 
     <div class="footer">
       <div class="container">
@@ -136,7 +84,9 @@
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/movie.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/contact.js"></script>
         <!-- endbuild -->
 </body>
 </html>

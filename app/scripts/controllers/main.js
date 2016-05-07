@@ -8,9 +8,9 @@
  * Controller of the angularProjectApp
  */
 angular.module('angularProjectApp')
-  .controller('MainCtrl', ($scope) => {
+  .controller('MainCtrl', function($scope) {
     // dummy data till we connect to API.
-    let movies = [
+    $scope.movies = [
       {
         title: 'Ace Drummond',
         image: 'http://lorempixel.com/200/300/',
@@ -33,8 +33,6 @@ angular.module('angularProjectApp')
       }
     ];
 
-    $scope.movies = movies;
-
     $scope.closed = false;
 
     $scope.movie = {
@@ -43,7 +41,7 @@ angular.module('angularProjectApp')
       description: ''
     };
 
-    $scope.isValid = () => {
+    $scope.isValid = function() {
       return ($scope.movie.title &&
       $scope.movie.description &&
       $scope.movie.category);
@@ -58,17 +56,17 @@ angular.module('angularProjectApp')
       }
     };
 
-    $scope.addMovie = () => {
+    $scope.addMovie = function() {
       $scope.movies.push(angular.copy($scope.movie));
     };
 
-    $scope.checkCategorySelected = () => {
+    $scope.checkCategorySelected = function() {
       if($scope.movie.category === '') {
         window.alert('Category cannot be empty.');
       }
     };
 
-    $scope.checkDescription = () => {
+    $scope.checkDescription = function() {
       console.debug($scope.movie.description);
     };
   });

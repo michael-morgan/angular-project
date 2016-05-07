@@ -1,23 +1,49 @@
-<div class="jumbotron">
-  <h1>Angular Project!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
-  <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
-  </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
-  </p>
-
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="row">
+  <div class="col-xs-7">
+    <h2>Movies</h2>
+    <div ng-repeat="movie in movies" style="clear: both;">
+      <img src="{{movie.image}}" class="pull-left img-responsive" style="margin-right: 10px;" />
+      <h3 ng-bind="movie.title"></h3>
+      <p ng-bind="movie.category" style="font-size: 0.8em; font-style: italic;"></p>
+      <p ng-bind="movie.description"></p>
+    </div>
+  </div>
+  <div class="col-xs-1">
+          <span class="glyphicon glyphicon-menu-right" ng-show="closed"
+                ng-click="closed=false"></span>
+          <span class="glyphicon glyphicon-menu-down" ng-hide="closed"
+                ng-click="closed=true"></span>
+  </div>
+  <div class="col-xs-4" ng-hide="closed">
+    <h2>Add</h2>
+    <div class="form-group">
+      <label>Title</label>
+      <input class="form-control" placeholder="Enter title" ng-model="movie.title"
+             ng-keyup="validateTitle()">
+    </div>
+    <div class="form-group">
+      <label>Image</label>
+      <input class="form-control" placeholder="Image" ng-model="movie.image">
+      <div ng-show="movie.image.length > 7 && movie.image.substr(-3) === 'png'">
+        <h4>Preview</h4>
+        <img class="img-responsive" ng-src="{{movie.image}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Category
+        <select class="form-control" ng-model="movie.category" ng-change="checkCategorySelected()">
+          <option value="">-</option>
+          <option value="Epic">Epic</option>
+          <option value="Awesome">Awesome</option>
+          <option value="Average">Average</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-group">
+      <label>Description
+        <textarea class="form-control" ng-model="movie.description" ng-blur="checkDescription()"></textarea>
+      </label>
+    </div>
+    <button class="btn btn-info" ng-click="addMovie()" ng-show="isValid()">Add</button>
+  </div>
 </div>
