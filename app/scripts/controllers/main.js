@@ -8,26 +8,34 @@
  * Controller of the angularProjectApp
  */
 angular.module('angularProjectApp')
-  .controller('MainCtrl', function($scope) {
+  .controller('MainCtrl', function($scope, $location) {
     // dummy data till we connect to API.
     $scope.movies = [
       {
+        id: 1,
         title: 'Ace Drummond',
+        slug: 'ace-drummond',
         image: 'http://lorempixel.com/200/300/',
         description: 'This 13 chapter serial is based on the comic strip character.'
       },
       {
+        id: 2,
         title: 'Rice Drummond',
+        slug: 'rice-drummond',
         image: 'http://lorempixel.com/200/300/',
         description: 'This 14 chapter serial is based on the comic strip character.'
       },
       {
+        id: 3,
         title: 'Nice Drummond',
+        slug: 'nice-drummond',
         image: 'http://lorempixel.com/200/300/',
         description: 'This 15 chapter serial is based on the comic strip character.'
       },
       {
+        id: 4,
         title: 'Nerd Drummond',
+        slug: 'nerd-drummond',
         image: 'http://lorempixel.com/200/300/',
         description: 'This 16 chapter serial is based on the comic strip character.'
       }
@@ -39,6 +47,13 @@ angular.module('angularProjectApp')
       title: '',
       image: 'http://lorempixel.com/200/300/',
       description: ''
+    };
+
+    $scope.randomMovie = function() {
+      var index = Math.floor(Math.random() * $scope.movies.length);
+      var movie = $scope.movies[index];
+      var url = 'movie/' + movie.id + '/' + movie.slug;
+      $location.url(url);
     };
 
     $scope.isValid = function() {
