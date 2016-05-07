@@ -31,15 +31,18 @@ angular.module('angularProjectApp')
         description: 'This 16 chapter serial is based on the comic strip character.'
       }
     ];
+
     $scope.movies = movies;
 
-    $scope.newMovieTitle = '';
-    $scope.newMovieDescription = '';
-    $scope.newMovieImage = 'http://lorempixel.com/200/300/';
+    $scope.movie = {
+      title: '',
+      image: 'http://lorempixel.com/200/300/',
+      description: ''
+    };
 
     $scope.validateTitle = () => {
-      if($scope.newMovieTitle.length > 0) {
-        console.debug($scope.newMovieTitle);
+      if($scope.movie.title.length > 0) {
+        console.debug($scope.movie.title);
       }
       else {
         window.alert('Title is required');
@@ -47,23 +50,16 @@ angular.module('angularProjectApp')
     };
 
     $scope.addMovie = () => {
-      let movie = {
-        title: $scope.newMovieTitle,
-        category: $scope.newMovieCategory,
-        image: $scope.newMovieImage,
-        description: $scope.newMovieDescription
-      };
-
-      $scope.movies.push(movie);
+      $scope.movies.push(angular.copy($scope.movie));
     };
 
     $scope.checkCategorySelected = () => {
-      if($scope.newMovieCategory === '') {
+      if($scope.movie.category === '') {
         window.alert('Category cannot be empty.');
       }
     };
 
     $scope.checkDescription = () => {
-      console.debug($scope.newMovieDescription);
+      console.debug($scope.movie.description);
     };
   });
