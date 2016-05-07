@@ -35,10 +35,18 @@ angular.module('angularProjectApp')
 
     $scope.movies = movies;
 
+    $scope.closed = false;
+
     $scope.movie = {
       title: '',
       image: 'http://lorempixel.com/200/300/',
       description: ''
+    };
+
+    $scope.isValid = () => {
+      return ($scope.movie.title &&
+      $scope.movie.description &&
+      $scope.movie.category);
     };
 
     $scope.validateTitle = () => {
