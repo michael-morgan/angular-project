@@ -9,6 +9,7 @@
  */
 angular.module('angularProjectApp')
   .controller('MainCtrl', ($scope) => {
+    // dummy data till we connect to API.
     let movies = [
       {
         title: 'Ace Drummond',
