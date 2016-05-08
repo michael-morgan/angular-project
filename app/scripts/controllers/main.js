@@ -8,26 +8,18 @@
  * Controller of the angularProjectApp
  */
 angular.module('angularProjectApp')
-  .controller('MainCtrl', function($scope, $location, $http) {
-    $http.get('/movies.json').success(function(data, status, headers, config) {
-      console.debug(data);
-      $scope.movies = data;
-    }).error(function(data, status, headers, config) {
-      console.error(data, status, headers, config);
-      if(status === 404) {
-        window.alert('404 file not found.');
-      }
-      else {
-        window.alert('Unknown error.');
-      }
+  .controller('MainCtrl', ['$scope', '$location', 'Movies', function($scope, $location, Movies) {
+    Movies.load().then(function(listOfMovies) {
+      $scope.movies = listOfMovies;
     });
 
     $scope.closed = false;
 
     $scope.movie = {
       title: '',
-      image: 'http://lorempixel.com/200/300/',
-      description: ''
+      description: '',
+      category: '',
+      image: 'http://lorempixel.com/200/300/'
     };
 
     $scope.randomMovie = function() {
@@ -44,20 +36,18 @@ angular.module('angularProjectApp')
     };
 
     $scope.validateTitle = function() {
-      if($scope.movie.title.length > 0) {
-        console.debug($scope.movie.title);
-      }
-      else {
+      if($scope.movie.title.length === 0) {
         window.alert('Title is required');
       }
     };
 
     $scope.addMovie = function() {
       $scope.movies.push(angular.copy($scope.movie));
+      Movies.add($scope.movie);
     };
 
     $scope.checkCategorySelected = function() {
-      if($scope.movie.category === '') {
+      if(!$scope.movie.category) {
         window.alert('Category cannot be empty.');
       }
     };
@@ -65,4 +55,4 @@ angular.module('angularProjectApp')
     $scope.checkDescription = function() {
       console.debug($scope.movie.description);
     };
-  });
+  }]);
