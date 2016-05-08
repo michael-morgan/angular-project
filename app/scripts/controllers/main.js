@@ -8,38 +8,19 @@
  * Controller of the angularProjectApp
  */
 angular.module('angularProjectApp')
-  .controller('MainCtrl', function($scope, $location) {
-    // dummy data till we connect to API.
-    $scope.movies = [
-      {
-        id: 1,
-        title: 'Ace Drummond',
-        slug: 'ace-drummond',
-        image: 'http://lorempixel.com/200/300/',
-        description: 'This 13 chapter serial is based on the comic strip character.'
-      },
-      {
-        id: 2,
-        title: 'Rice Drummond',
-        slug: 'rice-drummond',
-        image: 'http://lorempixel.com/200/300/',
-        description: 'This 14 chapter serial is based on the comic strip character.'
-      },
-      {
-        id: 3,
-        title: 'Nice Drummond',
-        slug: 'nice-drummond',
-        image: 'http://lorempixel.com/200/300/',
-        description: 'This 15 chapter serial is based on the comic strip character.'
-      },
-      {
-        id: 4,
-        title: 'Nerd Drummond',
-        slug: 'nerd-drummond',
-        image: 'http://lorempixel.com/200/300/',
-        description: 'This 16 chapter serial is based on the comic strip character.'
+  .controller('MainCtrl', function($scope, $location, $http) {
+    $http.get('/movies.json').success(function(data, status, headers, config) {
+      console.debug(data);
+      $scope.movies = data;
+    }).error(function(data, status, headers, config) {
+      console.error(data, status, headers, config);
+      if(status === 404) {
+        window.alert('404 file not found.');
       }
-    ];
+      else {
+        window.alert('Unknown error.');
+      }
+    });
 
     $scope.closed = false;
 
@@ -62,7 +43,7 @@ angular.module('angularProjectApp')
       $scope.movie.category);
     };
 
-    $scope.validateTitle = () => {
+    $scope.validateTitle = function() {
       if($scope.movie.title.length > 0) {
         console.debug($scope.movie.title);
       }
